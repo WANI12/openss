@@ -103,7 +103,7 @@ function SiteHeader() {
     <header className="w-full border-b border-slate-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <a href="/" className="flex items-center gap-3 text-slate-900">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#7db3e8] text-sm font-bold text-white">OSS</span>
+          <img src="/open-south-sudan-logo.png" alt="" className="h-11 w-14 rounded-lg object-contain" />
           <span className="text-lg font-semibold tracking-tight">Open South Sudan</span>
         </a>
         <nav className="hidden items-center gap-7 text-sm font-medium text-slate-700 md:flex" aria-label="Main navigation">
@@ -685,7 +685,7 @@ function HomePage() {
           <div className="grid gap-8 lg:grid-cols-[1.3fr_0.8fr_0.8fr_0.8fr_1.1fr]">
             <div>
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#7db3e8] text-sm font-bold text-white">OSS</div>
+                <img src="/open-south-sudan-logo.png" alt="" className="h-11 w-14 rounded-lg object-contain" />
                 <div className="text-xl font-bold tracking-tight text-white">Open South Sudan</div>
               </div>
               <p className="mt-5 max-w-sm text-base leading-7 text-slate-300">
