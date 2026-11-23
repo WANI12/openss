@@ -1,4 +1,10 @@
-const navItems = ['Who we are', 'Programs', 'Get involved', 'News', 'Contact']
+const navItems = [
+  ['Who we are', '/who-we-are'],
+  ['Programs', '/programs'],
+  ['Get involved', '/contact'],
+  ['News', '/news'],
+  ['Contact', '/contact'],
+]
 
 const stats = [
   { value: '10', label: 'states reached' },
@@ -92,34 +98,241 @@ const articles = [
 
 const partners = ['Ministry of Peace Building', 'UNDP', 'National Communication Authority', 'MTN South Sudan', 'University of Juba', 'Community Radio Network']
 
-function App() {
+function SiteHeader() {
   return (
-    <div className="min-h-screen bg-[#f3efe6] text-slate-900 antialiased">
-      <header className="w-full border-b border-slate-200 bg-white/80 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#7db3e8] text-sm font-bold text-white">OSS</div>
-            <div>
-              <div className="text-lg font-semibold tracking-tight">Open South Sudan</div>
-            </div>
+    <header className="w-full border-b border-slate-200 bg-white/90 backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <a href="/" className="flex items-center gap-3 text-slate-900">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#7db3e8] text-sm font-bold text-white">OSS</span>
+          <span className="text-lg font-semibold tracking-tight">Open South Sudan</span>
+        </a>
+        <nav className="hidden items-center gap-7 text-sm font-medium text-slate-700 md:flex" aria-label="Main navigation">
+          {navItems.map(([label, href]) => <a key={`${label}-${href}`} href={href} className="transition hover:text-sky-700">{label}</a>)}
+        </nav>
+        <a href="/contact" className="hidden rounded-full bg-[#7db3e8] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#5da0d3] sm:inline-flex">Partner with us</a>
+      </div>
+      <nav className="flex flex-wrap gap-x-5 gap-y-2 border-t border-slate-100 px-4 py-3 text-sm font-medium text-slate-700 md:hidden" aria-label="Mobile navigation">
+        {navItems.map(([label, href]) => <a key={`${label}-${href}`} href={href}>{label}</a>)}
+      </nav>
+    </header>
+  )
+}
+
+function SiteFooter() {
+  return (
+    <footer className="mt-16 border-t border-slate-700 bg-[#0f172a] text-white">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-2 lg:px-8">
+        <div>
+          <a href="/" className="text-xl font-bold">Open South Sudan</a>
+          <p className="mt-4 max-w-md text-sm leading-7 text-slate-300">A non-profit using technology, data and community-driven innovation to build a safer, stronger South Sudan.</p>
+        </div>
+        <div className="grid grid-cols-2 gap-6 text-sm">
+          <div className="space-y-3">
+            <h2 className="font-semibold uppercase tracking-wider text-slate-400">Explore</h2>
+            <a className="block hover:text-sky-200" href="/who-we-are">Who we are</a>
+            <a className="block hover:text-sky-200" href="/programs">Programs</a>
+            <a className="block hover:text-sky-200" href="/news">News</a>
           </div>
-
-          <nav className="hidden items-center gap-8 text-sm font-medium text-slate-700 md:flex">
-            {navItems.map((item) => (
-              <a key={item} href="#" className="transition hover:text-slate-950">
-                {item}
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <a href="tel:+211922702881" className="hidden text-sm text-slate-700 sm:inline">092 270 2881</a>
-            <button className="rounded-full bg-[#7db3e8] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#5da0d3]">
-              Partner with us
-            </button>
+          <div className="space-y-3">
+            <h2 className="font-semibold uppercase tracking-wider text-slate-400">Contact</h2>
+            <a className="block hover:text-sky-200" href="mailto:hello@open-ss.org">hello@open-ss.org</a>
+            <a className="block hover:text-sky-200" href="tel:+211922702881">092 270 2881</a>
+            <a className="block hover:text-sky-200" href="/contact">Juba, South Sudan</a>
           </div>
         </div>
-      </header>
+        <p className="border-t border-slate-700 pt-5 text-xs text-slate-400 md:col-span-2">© 2026 Open South Sudan. All rights reserved.</p>
+      </div>
+    </footer>
+  )
+}
+
+function PageLayout({ children }) {
+  return (
+    <div className="min-h-screen bg-[#f3efe6] text-slate-900 antialiased">
+      <SiteHeader />
+      {children}
+      <SiteFooter />
+    </div>
+  )
+}
+
+function PageHeading({ eyebrow, title, description }) {
+  return (
+    <section className="mx-auto max-w-7xl px-4 pb-10 pt-16 sm:px-6 lg:px-8 lg:pt-24">
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-700">{eyebrow}</p>
+      <h1 className="mt-4 max-w-4xl text-4xl font-black tracking-[-0.06em] text-slate-950 sm:text-6xl">{title}</h1>
+      <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-700">{description}</p>
+    </section>
+  )
+}
+
+function WhoWeArePage() {
+  const values = [
+    ['Community first', 'We begin by listening and build alongside the people closest to each challenge.'],
+    ['Openness', 'We share knowledge and tools so communities can learn, adapt and create their own solutions.'],
+    ['Data integrity', 'We use information responsibly and make decisions with care, context and transparency.'],
+    ['Build and learn', 'We test ideas, learn from experience and improve what we make.'],
+  ]
+
+  return (
+    <PageLayout>
+      <PageHeading eyebrow="About Open South Sudan" title="A home for South Sudanese problem-solvers." description="We are a non-profit using technology, data and community-driven innovation to build a safer, stronger South Sudan." />
+      <main className="mx-auto max-w-7xl space-y-8 px-4 pb-8 sm:px-6 lg:px-8">
+        <section className="grid gap-6 lg:grid-cols-2">
+          <article className="rounded-[2rem] border border-slate-200 bg-white p-8 sm:p-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-700">Our vision</p>
+            <h2 className="mt-4 text-3xl font-black tracking-tight">A connected South Sudan.</h2>
+            <p className="mt-4 text-lg leading-8 text-slate-700">Every community has the information and connections it needs to prepare, respond and prosper.</p>
+          </article>
+          <article className="rounded-[2rem] bg-[#0f3d2e] p-8 text-white sm:p-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200">Our mission</p>
+            <h2 className="mt-4 text-3xl font-black tracking-tight">Technology in service of community.</h2>
+            <p className="mt-4 text-lg leading-8 text-emerald-50/90">We leverage technology, innovation and community-led solutions to address the social, economic and humanitarian challenges facing South Sudan.</p>
+          </article>
+        </section>
+        <section className="py-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-700">What guides us</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">Our values, in practice.</h2>
+          <div className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {values.map(([title, detail], index) => (
+              <article key={title} className="rounded-3xl border border-slate-200 bg-white p-6">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#edf6ff] font-bold text-sky-800">{String(index + 1).padStart(2, '0')}</span>
+                <h3 className="mt-5 text-xl font-bold">{title}</h3>
+                <p className="mt-3 leading-7 text-slate-600">{detail}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section className="rounded-[2rem] border border-slate-200 bg-[#edf6ee] p-8 sm:p-10">
+          <h2 className="text-2xl font-black tracking-tight">Locally rooted. Open to collaboration.</h2>
+          <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-700">From Juba, we work with communities, local organisations and partners to make useful, accessible tools and share knowledge that helps people act.</p>
+          <a href="/contact" className="mt-6 inline-flex rounded-full bg-[#7db3e8] px-5 py-3 text-sm font-semibold text-white hover:bg-[#5da0d3]">Meet us and partner</a>
+        </section>
+      </main>
+    </PageLayout>
+  )
+}
+
+function ProgramsPage() {
+  return (
+    <PageLayout>
+      <PageHeading eyebrow="What we do" title="Programs built for real life in South Sudan." description="We pair local knowledge with practical technology to help communities stay informed, connected and ready to act." />
+      <main className="mx-auto max-w-7xl space-y-7 px-4 pb-8 sm:px-6 lg:px-8">
+        {programs.map((program, index) => (
+          <article key={program.name} className="grid overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm lg:grid-cols-2">
+            <div className={`relative min-h-64 ${index % 2 ? 'lg:order-2' : ''}`}>
+              <img src={program.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
+              <div className={`absolute inset-0 bg-gradient-to-br ${program.accent} opacity-60`} />
+              <span className="absolute bottom-6 left-6 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-slate-900">{String(index + 1).padStart(2, '0')} / Program</span>
+            </div>
+            <div className="p-8 lg:p-12">
+              <h2 className="text-3xl font-black tracking-tight text-slate-950">{program.name}</h2>
+              <p className="mt-5 text-lg leading-8 text-slate-700">{program.description}</p>
+              <ul className="mt-6 space-y-3">
+                {program.features.map((feature) => <li key={feature} className="flex items-center gap-3 text-slate-800"><span className="h-2.5 w-2.5 rounded-full bg-[#7db3e8]" />{feature}</li>)}
+              </ul>
+              <a href="/contact" className="mt-8 inline-flex rounded-full bg-[#7db3e8] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#5da0d3]">Ask about this program</a>
+            </div>
+          </article>
+        ))}
+        <section className="rounded-[2rem] bg-[#0f3d2e] p-8 text-white sm:p-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200">Build with us</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight">Have a challenge your community is ready to solve?</h2>
+          <p className="mt-4 max-w-2xl leading-7 text-emerald-50/90">We welcome community groups, practitioners and partners who want to make useful, locally led technology.</p>
+          <a href="/contact" className="mt-6 inline-flex rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#0f3d2e] hover:bg-emerald-50">Start a conversation</a>
+        </section>
+      </main>
+    </PageLayout>
+  )
+}
+
+function NewsPage() {
+  return (
+    <PageLayout>
+      <PageHeading eyebrow="Stories & updates" title="News from the work." description="Field notes, program updates and ideas from the people building a safer, stronger South Sudan." />
+      <main className="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
+        <div className="grid gap-6 lg:grid-cols-3">
+          {articles.map((article, index) => (
+            <article key={article.title} className="flex flex-col overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm">
+              <div className={`relative h-52 overflow-hidden bg-gradient-to-br ${programs[index % programs.length].accent}`}>
+                <img src={programs[index % programs.length].image} alt="" className="h-full w-full object-cover opacity-80" />
+                <span className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-800">{article.meta}</span>
+              </div>
+              <div className="flex flex-1 flex-col p-6">
+                <p className="text-sm text-slate-500">{article.date} <span aria-hidden="true">·</span> {article.readTime}</p>
+                <h2 className="mt-4 text-2xl font-bold leading-tight tracking-tight text-slate-950">{article.title}</h2>
+                <p className="mt-4 flex-1 leading-7 text-slate-700">{article.detail}</p>
+                <a href="/contact" className="mt-6 inline-flex items-center gap-2 font-semibold text-sky-700 hover:text-sky-900">Ask us about this story <span aria-hidden="true">→</span></a>
+              </div>
+            </article>
+          ))}
+        </div>
+        <aside className="mt-10 rounded-[2rem] border border-slate-200 bg-white p-8 sm:p-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-700">Stay connected</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight">Follow what communities are building.</h2>
+          <p className="mt-4 max-w-2xl leading-7 text-slate-700">For updates, media enquiries or to share a story from your community, get in touch with the Open South Sudan team.</p>
+          <a href="/contact" className="mt-6 inline-flex rounded-full bg-[#7db3e8] px-5 py-3 text-sm font-semibold text-white hover:bg-[#5da0d3]">Contact our team</a>
+        </aside>
+      </main>
+    </PageLayout>
+  )
+}
+
+function ContactPage() {
+  function submitContact(event) {
+    event.preventDefault()
+    const form = new FormData(event.currentTarget)
+    const subject = encodeURIComponent(`Website enquiry from ${form.get('name')}`)
+    const body = encodeURIComponent(`Name: ${form.get('name')}\nEmail: ${form.get('email')}\n\n${form.get('message')}`)
+    window.location.href = `mailto:hello@open-ss.org?subject=${subject}&body=${body}`
+  }
+
+  return (
+    <PageLayout>
+      <PageHeading eyebrow="Get in touch" title="Let’s build something that matters." description="Have a question, partnership idea or community challenge? We would love to hear from you." />
+      <main className="mx-auto grid max-w-7xl gap-8 px-4 pb-8 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
+        <section className="space-y-5">
+          <div className="rounded-[2rem] bg-[#0f3d2e] p-8 text-white">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200">Open South Sudan</p>
+            <h2 className="mt-4 text-2xl font-bold">We’re based in Juba and work with communities across South Sudan.</h2>
+            <p className="mt-4 leading-7 text-emerald-50/90">Reach out to explore partnerships, programs, volunteering or media enquiries.</p>
+          </div>
+          <a href="mailto:hello@open-ss.org" className="block rounded-2xl border border-slate-200 bg-white p-5 hover:border-sky-300">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">Email</span>
+            <span className="mt-1 block text-lg font-semibold text-sky-800">hello@open-ss.org</span>
+          </a>
+          <a href="tel:+211922702881" className="block rounded-2xl border border-slate-200 bg-white p-5 hover:border-sky-300">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">Phone</span>
+            <span className="mt-1 block text-lg font-semibold text-sky-800">092 270 2881</span>
+          </a>
+          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">Location</span>
+            <span className="mt-1 block text-lg font-semibold text-slate-900">Juba, Central Equatoria, South Sudan</span>
+          </div>
+        </section>
+        <form onSubmit={submitContact} className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-9">
+          <h2 className="text-2xl font-black tracking-tight">Send us a message</h2>
+          <p className="mt-2 text-sm leading-6 text-slate-600">Submitting opens your email app with your message addressed to our team.</p>
+          <label className="mt-6 block text-sm font-semibold text-slate-800">Your name
+            <input required name="name" autoComplete="name" className="mt-2 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 font-normal outline-none transition focus:border-sky-500 focus:bg-white" />
+          </label>
+          <label className="mt-4 block text-sm font-semibold text-slate-800">Email address
+            <input required name="email" type="email" autoComplete="email" className="mt-2 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 font-normal outline-none transition focus:border-sky-500 focus:bg-white" />
+          </label>
+          <label className="mt-4 block text-sm font-semibold text-slate-800">How can we help?
+            <textarea required name="message" rows="6" className="mt-2 w-full resize-y rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 font-normal outline-none transition focus:border-sky-500 focus:bg-white" />
+          </label>
+          <button type="submit" className="mt-6 rounded-full bg-[#7db3e8] px-6 py-3 font-semibold text-white transition hover:bg-[#5da0d3]">Continue to email</button>
+        </form>
+      </main>
+    </PageLayout>
+  )
+}
+
+function HomePage() {
+  return (
+    <div className="min-h-screen bg-[#f3efe6] text-slate-900 antialiased">
+      <SiteHeader />
 
       <main>
         <section className="mx-auto max-w-7xl px-4 pb-8 pt-10 sm:px-6 lg:px-8 lg:pt-14">
@@ -143,12 +356,12 @@ function App() {
               </p>
 
               <div className="mt-8 flex flex-wrap gap-4">
-                <button className="rounded-full bg-[#7db3e8] px-6 py-3.5 text-base font-semibold text-white transition hover:bg-[#5da0d3]">
+                <a href="/programs" className="rounded-full bg-[#7db3e8] px-6 py-3.5 text-base font-semibold text-white transition hover:bg-[#5da0d3]">
                   Explore our programs
-                </button>
-                <button className="rounded-full border border-sky-200 bg-white px-6 py-3.5 text-base font-semibold text-sky-700 transition hover:border-sky-300 hover:bg-sky-50">
+                </a>
+                <a href="/contact" className="rounded-full border border-sky-200 bg-white px-6 py-3.5 text-base font-semibold text-sky-700 transition hover:border-sky-300 hover:bg-sky-50">
                   Partner with us
-                </button>
+                </a>
               </div>
 
               <div className="mt-9 flex flex-wrap gap-6 text-sm text-slate-700 sm:text-base">
@@ -251,7 +464,7 @@ function App() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-700">Programs</p>
               <h3 className="mt-3 text-4xl font-black tracking-[-0.05em] text-slate-950">Programs built for real life in South Sudan.</h3>
             </div>
-            <a href="#" className="hidden text-base font-semibold text-slate-800 hover:text-slate-950 md:inline">See all programs</a>
+            <a href="/programs" className="hidden text-base font-semibold text-slate-800 hover:text-slate-950 md:inline">See all programs</a>
           </div>
 
           <div className="space-y-8">
@@ -431,7 +644,7 @@ function App() {
                 <div className="mt-5 text-sm font-medium text-slate-500">{article.readTime}</div>
                 <h4 className="mt-3 text-2xl font-bold tracking-[-0.04em] text-slate-900">{article.title}</h4>
                 <p className="mt-4 text-base leading-7 text-slate-700">{article.detail}</p>
-                <a href="#" className="mt-6 inline-flex text-base font-semibold text-sky-700 hover:text-sky-800">Read the story →</a>
+                <a href="/news" className="mt-6 inline-flex text-base font-semibold text-sky-700 hover:text-sky-800">Read the story →</a>
               </article>
             ))}
           </div>
@@ -448,9 +661,9 @@ function App() {
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-4">
-                  <button className="rounded-full bg-[#7db3e8] px-5 py-3 text-sm font-semibold text-white hover:bg-[#5da0d3]">Donate</button>
-                  <button className="rounded-full border border-sky-200 bg-white px-5 py-3 text-sm font-semibold text-sky-700 hover:bg-sky-50">Volunteer</button>
-                  <button className="rounded-full border border-sky-200 bg-white px-5 py-3 text-sm font-semibold text-sky-700 hover:bg-sky-50">Partner with us</button>
+                  <a href="/contact" className="rounded-full bg-[#7db3e8] px-5 py-3 text-sm font-semibold text-white hover:bg-[#5da0d3]">Donate</a>
+                  <a href="/contact" className="rounded-full border border-sky-200 bg-white px-5 py-3 text-sm font-semibold text-sky-700 hover:bg-sky-50">Volunteer</a>
+                  <a href="/contact" className="rounded-full border border-sky-200 bg-white px-5 py-3 text-sm font-semibold text-sky-700 hover:bg-sky-50">Partner with us</a>
                 </div>
               </div>
 
@@ -489,60 +702,60 @@ function App() {
             <div>
               <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">About</h4>
               <ul className="mt-5 space-y-3 text-slate-300">
-                <li>Who We Are</li>
-                <li>Mission & Values</li>
-                <li>Our Team</li>
-                <li>Partners</li>
-                <li>Careers</li>
+                <li><a href="/who-we-are" className="hover:text-white">Who We Are</a></li>
+                <li><a href="/who-we-are" className="hover:text-white">Mission & Values</a></li>
+                <li><a href="/who-we-are" className="hover:text-white">Our Team</a></li>
+                <li><a href="/who-we-are" className="hover:text-white">Partners</a></li>
+                <li><a href="/contact" className="hover:text-white">Careers</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">Programs</h4>
               <ul className="mt-5 space-y-3 text-slate-300">
-                <li>AlertGuard</li>
-                <li>Betna</li>
-                <li>Eventy</li>
-                <li>Peacebuilding</li>
-                <li>Digital Inclusion</li>
+                <li><a href="/programs" className="hover:text-white">AlertGuard</a></li>
+                <li><a href="/programs" className="hover:text-white">Betna</a></li>
+                <li><a href="/programs" className="hover:text-white">Eventy</a></li>
+                <li><a href="/programs" className="hover:text-white">Peacebuilding</a></li>
+                <li><a href="/programs" className="hover:text-white">Digital Inclusion</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">Get involved</h4>
               <ul className="mt-5 space-y-3 text-slate-300">
-                <li>Donate</li>
-                <li>Volunteer</li>
-                <li>Partner With Us</li>
-                <li>Get Alerts</li>
-                <li>Report a Hazard</li>
+                <li><a href="/contact" className="hover:text-white">Donate</a></li>
+                <li><a href="/contact" className="hover:text-white">Volunteer</a></li>
+                <li><a href="/contact" className="hover:text-white">Partner With Us</a></li>
+                <li><a href="/contact" className="hover:text-white">Get Alerts</a></li>
+                <li><a href="/contact" className="hover:text-white">Report a Hazard</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">Stay in the loop</h4>
               <p className="mt-5 text-base leading-7 text-slate-300">Monthly updates on our programs, open data and opportunities across South Sudan.</p>
-              <div className="mt-5 flex gap-2">
-                <input className="w-full rounded-full border border-slate-600 bg-slate-800 px-4 py-3 text-sm text-white outline-none placeholder:text-slate-400 focus:border-sky-400" placeholder="Email address" />
-                <button className="rounded-full bg-[#7db3e8] px-4 py-3 text-sm font-semibold text-white hover:bg-[#5da0d3]">Subscribe</button>
-              </div>
-              <p className="mt-4 text-xs text-slate-400">By subscribing you agree to our privacy policy.</p>
+              <a href="/news" className="mt-5 inline-flex rounded-full bg-[#7db3e8] px-5 py-3 text-sm font-semibold text-white hover:bg-[#5da0d3]">Read our latest news</a>
             </div>
           </div>
 
           <div className="mt-10 flex flex-col gap-4 border-t border-slate-700 pt-6 text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
             <div>© 2026 Open South Sudan. All rights reserved.</div>
-            <div className="flex flex-wrap gap-5">
-              <span>Privacy Policy</span>
-              <span>Terms of Use</span>
-              <span>Safeguarding</span>
-              <span>Accessibility</span>
-            </div>
+            <a href="/contact" className="hover:text-white">Contact Open South Sudan</a>
           </div>
         </div>
       </footer>
     </div>
   )
+}
+
+function App() {
+  const path = window.location.pathname.replace(/\/+$/, '') || '/'
+  if (path === '/who-we-are') return <WhoWeArePage />
+  if (path === '/programs') return <ProgramsPage />
+  if (path === '/news') return <NewsPage />
+  if (path === '/contact') return <ContactPage />
+  return <HomePage />
 }
 
 export default App
